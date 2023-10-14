@@ -772,7 +772,7 @@ func _init(node):
 		#node.connect("nothing_selected", self, "item_list_nothing_selected")
 		node.item_selected.connect(item_list_item_selected)
 		node.multi_selected.connect(item_list_multi_selected)
-		node.nothing_selected.connect(item_list_nothing_selected)
+		node.empty_clicked.connect(item_list_nothing_selected)
 	elif node is LineEdit:
 		#node.connect("text_changed", self, "line_edit_text_changed")
 		node.text_changed.connect(line_edit_text_changed)
