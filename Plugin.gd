@@ -1,4 +1,4 @@
-tool
+@tool
 extends EditorPlugin
 
 var ScreenReader = preload("ScreenReader.gd")
@@ -23,17 +23,20 @@ func set_initial_screen_focus(screen):
 
 func _enter_tree():
 	var editor_accessibility_enabled = true
-	add_autoload_singleton("TTS", "res://addons/godot-tts/TTS.gd")
+	add_autoload_singleton("TTS_singleton", "res://addons/godot-accessibility/TTS.gd")
 	var rate = TTS.normal_rate
 	var config = ConfigFile.new()
 	var err = config.load("res://.godot-accessibility-editor-settings.ini")
 	if not err:
+		print("Hey yoooo")
 		editor_accessibility_enabled = config.get_value(
 			"global", "editor_accessibility_enabled", true
 		)
 		rate = config.get_value("speech", "rate", 50)
 	if editor_accessibility_enabled:
-		TTS.call_deferred("_set_rate", rate)
+		#TTS.call_deferred("_set_rate", rate)
+		#TTS._set_rate(rate)
+		TTS._set_rate(1.0)
 		screen_reader = ScreenReader.new()
 		screen_reader.enable_focus_mode = true
 		get_tree().root.call_deferred("add_child", screen_reader)
@@ -51,7 +54,8 @@ func _process(delta):
 	if not screen_reader.enabled:
 		return
 	var focus = screen_reader.find_focusable_control(get_tree().root)
-	focus = focus.get_focus_owner()
+	#focus = focus.get_focus_owner()
+	focus = get_viewport().gui_get_focus_owner()
 	if focus:
 		_focus_loss_interval = 0
 	else:
