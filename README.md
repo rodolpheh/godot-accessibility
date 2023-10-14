@@ -1,5 +1,10 @@
 # Godot Accessibility Plugin
 
+> [!IMPORTANT]
+> This is a fork of the original [godot-accessibility](https://github.com/lightsoutgames/godot-accessibility) plugin, ported to Godot 4. I am not the author of the text below and I've left it as-is as a form of credit to the original author. Thank you [lightsoutgames](https://github.com/lightsoutgames) for providing the original plugin.
+
+---
+
 _Warning: Still in early development. Only use if you're willing and able to roll up your sleeves and help._
 
 This plugin implements a screen reader for user interfaces created with the [Godot game engine](https://godotengine.org). The goal is to enable the creation of [audio games](https://en.wikipedia.org/wiki/Audio_game) with Godot, as well as to add accessibility functionality to user interfaces and to encourage the creation of accessible games. 3.2 is the minimum supported version, though most functionality should work on 3.1 as well.
