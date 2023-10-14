@@ -28,15 +28,13 @@ func _enter_tree():
 	var config = ConfigFile.new()
 	var err = config.load("res://.godot-accessibility-editor-settings.ini")
 	if not err:
-		print("Hey yoooo")
 		editor_accessibility_enabled = config.get_value(
 			"global", "editor_accessibility_enabled", true
 		)
 		rate = config.get_value("speech", "rate", 50)
 	if editor_accessibility_enabled:
+		# Not really reimplemented yet
 		#TTS.call_deferred("_set_rate", rate)
-		#TTS._set_rate(rate)
-		TTS._set_rate(1.0)
 		screen_reader = ScreenReader.new()
 		screen_reader.enable_focus_mode = true
 		get_tree().root.call_deferred("add_child", screen_reader)

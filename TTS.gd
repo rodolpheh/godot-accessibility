@@ -3,9 +3,13 @@ class_name TTS
 
 static var normal_rate : float = 1.0
 
+static var voice_id = null
+
 static func speak(sentence, interrupt = false):
-	var voices = DisplayServer.tts_get_voices_for_language("en")
-	var voice_id = voices[0]
+	if voice_id == null:
+		voice_id = DisplayServer.tts_get_voices_for_language("en")[0]
+	if interrupt:
+		DisplayServer.tts_stop()
 	DisplayServer.tts_speak(sentence, voice_id)
 
 

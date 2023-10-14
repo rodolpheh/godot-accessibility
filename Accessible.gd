@@ -232,7 +232,7 @@ func item_list_input(event):
 	if old_pos != position_in_children:
 		if position_in_children >= node.get_item_count():
 			position_in_children = 0
-		node.unselect_all()
+		node.deselect_all()
 		node.select(position_in_children)
 		node.emit_signal("item_list_item_selected", position_in_children)
 		item_list_item_focused(position_in_children)
@@ -266,6 +266,8 @@ func line_edit_focused():
 var old_text = ""
 
 var old_pos
+
+var code_edit_line : int = 0
 
 
 func line_edit_text_changed(text):
@@ -585,7 +587,18 @@ func tab_container_input(event):
 		new_tab = 0
 	if node.current_tab != new_tab:
 		node.current_tab = new_tab
-
+		
+func code_edit_focused(node : CodeEdit):
+	#var line : String = node.get_line(node.get_caret_line())
+	#TTS.speak(line)
+	pass
+	
+func code_edit_event(event):
+	var line_no : int = node.get_caret_line()
+	if code_edit_line != line_no:
+		var text : String = node.get_line(node.get_caret_line())
+		TTS.speak(text, true)
+	code_edit_line = line_no
 
 func focused():
 	print_debug("Focus: %s" % node)
@@ -627,6 +640,8 @@ func focused():
 		range_focused()
 	elif node is TabContainer:
 		tab_container_focused()
+	elif node is CodeEdit:
+		code_edit_focused(node as CodeEdit)
 	elif node is TextEdit:
 		text_edit_focus()
 	elif node is TextureButton:
@@ -668,6 +683,8 @@ func gui_input(event):
 		return tab_container_input(event)
 	elif node is ItemList:
 		return item_list_input(event)
+	elif node is CodeEdit:
+		return code_edit_event(event)
 	elif node is LineEdit:
 		return line_edit_input(event)
 	elif node is TextEdit:
