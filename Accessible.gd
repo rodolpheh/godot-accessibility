@@ -481,8 +481,8 @@ func _tree_input(event):
 		else:
 			area = node.get_item_area_rect(item)
 		var position = Vector2(
-			node.rect_global_position.x + area.position.x + area.size.x / 2,
-			node.rect_global_position.y + area.position.y + area.size.y / 2
+			node.global_position.x + area.position.x + area.size.x / 2,
+			node.global_position.y + area.position.y + area.size.y / 2
 		)
 		node.get_tree().root.warp_mouse(position)
 	if item and column != null and item.get_button_count(column):
